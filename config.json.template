@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "armis-security": {
+      "type": "streamable-http",
+      "url": "https://gce.armis.com/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_ARMIS_API_KEY"
+      }
+    }
+  }
+}
