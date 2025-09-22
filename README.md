@@ -57,6 +57,6 @@ Use the API endpoint and the generated Bearer token to interact with your MCP se
 
 ## Development
 
-- **View Logs**: `docker logs mcpo-armis`
+- **View Logs**: `docker logs mcpo-proxy`
 - **Restart Service**: `docker compose restart` (generates a new token)
 - **Stop Service**: `docker compose down`

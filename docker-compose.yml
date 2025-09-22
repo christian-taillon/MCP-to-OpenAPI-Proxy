@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  mcpo-armis:
+  mcpo-proxy:
     build: .
-    container_name: mcpo-armis
+    container_name: mcpo-proxy
     ports:
       - "0.0.0.0:8100:8000"  # Expose on all interfaces, port 8100
     command: ["--config", "/config.json", "--port", "8000"]
