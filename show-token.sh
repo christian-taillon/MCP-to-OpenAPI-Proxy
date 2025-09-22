@@ -1,20 +1,21 @@
 #!/bin/bash
+
+TOKEN_PATH="./.mcpo/mcpo_bearer_token"
+
+if [ ! -f "$TOKEN_PATH" ]; then
+    echo "Token file not found. Is the service running?" >&2
+    exit 1
+fi
+
+TOKEN=$(cat "$TOKEN_PATH")
+
 echo "=============================================="
-echo "🔐 Current MCPO Configuration for OpenWebUI"
+echo "🔐 Current MCPO Bearer Token"
 echo "=============================================="
 echo ""
-TOKEN=$(docker logs mcpo-armis 2>&1 | grep "Token:" | head -1 | awk -F': ' '{print $2}')
-echo "Configuration for OpenWebUI:"
+echo "Bearer Token: $TOKEN"
 echo ""
-echo "1. OpenAPI URL (use this exact URL):"
-echo "   http://localhost:8100/armis-security/openapi.json"
+echo "API Endpoint: http://localhost:8100/armis-security"
+echo "OpenAPI Spec: http://localhost:8100/armis-security/openapi.json"
 echo ""
-echo "2. Authentication:"
-echo "   - Type: Bearer"  
-echo "   - Token: $TOKEN"
-echo ""
-echo "=============================================="
-echo "Test Command:"
-echo "curl -H \"Authorization: Bearer $TOKEN\" \\"
-echo "  http://localhost:8100/armis-security/openapi.json | jq .info"
 echo "=============================================="

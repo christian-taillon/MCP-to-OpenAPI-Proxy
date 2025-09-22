@@ -8,7 +8,9 @@ services:
       - "0.0.0.0:8100:8000"  # Expose on all interfaces, port 8100
     command: ["--config", "/config.json", "--port", "8000"]
     restart: unless-stopped
+    volumes:
+      - ./config.json:/config.json:ro
+      - ./.mcpo:/run/secrets
     environment:
-      - DUMMY=value  # Keep environment section valid
-      # Uncomment to use a specific token instead of generating one:
+      - DUMMY=value
       # - MCPO_BEARER_TOKEN=your-custom-token-here

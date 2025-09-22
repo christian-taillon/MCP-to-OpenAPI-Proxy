@@ -1,10 +1,19 @@
-# Armis MCP to OpenAPI Proxy
+# MCP to OpenAPI Proxy
 
-This project provides a Docker-based proxy to expose the Armis Security MCP (Master Control Program) server as a standard OpenAPI interface, secured with Bearer token authentication. It is designed for seamless integration with tools like OpenWebUI.
+This project provides a Docker-based proxy that exposes any MCP (Master Control Program) server as a standard OpenAPI interface. It is powered by [mcpo](https://github.com/open-webui/mcpo) and secured with Bearer token authentication.
+
+This proxy allows Large Language Models (LLMs) and other developer tools to interact with OpenAPI-compliant endpoints, enabling a wide range of automation and integration possibilities.
+
+## Why Use This Proxy?
+
+- **Compatibility**: Makes non-standard MCP APIs compatible with the vast ecosystem of OpenAPI tools, such as code generators, testing frameworks, and API explorers.
+- **LLM Integration**: Enables LLMs to understand and interact with your APIs for tasks like automated testing, data retrieval, and complex workflow execution. An example of this is with [OpenWebUI](https://github.com/open-webui/open-webui), which can use this proxy to give its LLMs tools to interact with the real world.
+- **Simplified Authentication**: Abstracts complex authentication mechanisms behind a simple, unified Bearer token, simplifying client-side code.
+- **Standardization**: Presents a consistent, predictable API interface, regardless of the underlying MCP implementation.
 
 ## Features
 
-- **OpenAPI Transformation**: Converts the Armis MCP into a standard OpenAPI specification.
+- **OpenAPI Transformation**: Converts an MCP into a standard OpenAPI specification.
 - **Secure Authentication**: Automatically generates a secure Bearer token on startup.
 - **Dockerized**: Easy to deploy and manage with Docker Compose.
 - **Customizable**: Supports custom Bearer tokens and flexible configuration.
@@ -12,15 +21,15 @@ This project provides a Docker-based proxy to expose the Armis Security MCP (Mas
 ## Prerequisites
 
 - Docker and Docker Compose
-- Access to an Armis Security instance with API credentials
+- Access to an MCP server with API credentials
 
 ## Quick Start
 
-1.  **Configure Armis API Access**:
+1.  **Configure API Access**:
     ```bash
     cp config.json.template config.json
     ```
-    Edit `config.json` and replace `YOUR_ARMIS_API_KEY` with your actual Armis API key.
+    Edit `config.json` to point to your MCP server and include the necessary authentication headers.
 
 2.  **Start the Proxy Service**:
     ```bash
@@ -28,22 +37,22 @@ This project provides a Docker-based proxy to expose the Armis Security MCP (Mas
     ```
 
 3.  **Retrieve the Bearer Token**:
-    The authentication token is logged to the console on startup. To view it at any time, run:
+    The authentication token is saved in the `./.mcpo` directory. To view it, run:
     ```bash
     ./show-token.sh
     ```
 
 ## Usage
 
-- **API Endpoint**: `http://<host-ip>:8100/armis-security`
+- **API Endpoint**: `http://localhost:8100/<your-mcp-server-name>`
 - **OpenAPI Docs**: `http://localhost:8100/docs`
 
-To integrate with a client like OpenWebUI, use the API endpoint and the generated Bearer token for authentication.
+Use the API endpoint and the generated Bearer token to interact with your MCP server.
 
 ## Security
 
-- **API Key**: The `config.json` file contains your Armis API key and should be treated as a secret. It is ignored by Git.
-- **Bearer Token**: A new, secure token is generated each time the container starts. For production environments, consider using a long-lived, managed token by setting `MCPO_BEARER_TOKEN` in `docker-compose.yml`.
+- **API Key**: The `config.json` file contains your API key and is ignored by Git. Keep this file secure.
+- **Bearer Token**: A new, secure token is generated each time the container starts and stored in the `./.mcpo` directory. For production, consider using a long-lived token by setting `MCPO_BEARER_TOKEN` in `docker-compose.yml`.
 - **Network**: The service is exposed on `0.0.0.0:8100`. For production, restrict access to trusted IPs or place it behind a reverse proxy with TLS.
 
 ## Development
