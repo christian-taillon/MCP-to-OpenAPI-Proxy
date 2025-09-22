@@ -1,6 +1,8 @@
-# MCP to OpenAPI Proxy
+# MCP-to-OpenAPI Proxy
 
-This project provides a Docker-based proxy that exposes any MCP (Master Control Program) server as a standard OpenAPI interface. It is powered by [mcpo](https://github.com/open-webui/mcpo) and secured with Bearer token authentication.
+A Dockerized proxy to expose any MCP (Master Control Program) server as a standard OpenAPI interface, enabling integration with LLMs and other developer tools.
+
+This project is powered by [mcpo](https://github.com/open-webui/mcpo) and secured with Bearer token authentication.
 
 This proxy allows Large Language Models (LLMs) and other developer tools to interact with OpenAPI-compliant endpoints, enabling a wide range of automation and integration possibilities.
 
@@ -26,10 +28,11 @@ This proxy allows Large Language Models (LLMs) and other developer tools to inte
 ## Quick Start
 
 1.  **Configure API Access**:
+    Copy the `template.config.json` to `config.json`:
     ```bash
-    cp config.json.template config.json
+    cp template.config.json config.json
     ```
-    Edit `config.json` to point to your MCP server and include the necessary authentication headers.
+    Edit `config.json` to point to your MCP server and include the necessary authentication headers. See `example.config.json` for an Armis integration example.
 
 2.  **Start the Proxy Service**:
     ```bash
